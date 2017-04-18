@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>进阶12加载更多</title>
+  <style>
+    a{
+      text-decoration: none;
+    }
+    ul,li{
+      margin: 0;
+      padding: 0;
+    }
+    li{
+      list-style: none;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .btn{
+      border: 1px solid red;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      background-color: #fff;
+      color: red;
+      border-radius: 4px;
+      padding: 2px 4px;
+      display: block;
+      margin: 10px auto;
+      width: 80px;
+    }
+    li:hover{
+      background-color: green;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <ul id="ct">
+    <li>内容1</li>
+    <li>内容2</li>
+  </ul>
+  <a href="#" id="load-more" class="btn">加载更多</a>
+  <script src="js/jquery-3.2.0.min.js"></script>
+  <script>
+    var ct=document.querySelector('#ct');
+    var btn=document.querySelector('.btn');
+    var pageIndex=0;
+    var isDataArrive=true;
+
+
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+       if(!isDataArrive){return;}
+       loadData(function(news){
+         renderPage(news)
+         pageIndex=pageIndex+5;
+         isDataArrive=true;
+       })
+         isDataArrive=false;
+    })
+   function loadData(callback){
+     ajax(
+       {
+         type:'get',
+         url: '/loadMore',
+         data:{
+           index: pageIndex,
+           length: 5
+         },
+         onSuccess: callback,
+         onError: function(){
+           console.log('error')
+         }
+       }
+     )
+   }
+   function renderPage(news){
+     var fragment=document.createDocumentFragement();
+     for(var i=0;i<news.length;i++){
+       var node=document.createElement('li')
+       node.innerText=news[i]
+       fragment.appendChild(node)
+     }
+      ct.appendChild(fragment)
+   }
+
+   function ajax(opts){
+     var xhr=new XMLHttpRequest()
+     xhr.onreadystatechange=function(){
+       if(xhr.readyState===4){
+         if(xhr.status===202||xhr.status===304){
+           var results=JSON.parse(xhr.responseText)
+           opts.onSuccess(results)
+         }else{
+           opts.onError();
+         }
+       }
+     }
+     var query='?'
+     for(key in opts.data){
+       query+=key+'='+opts.data[key]+'&';
+     }
+     query=query.substr(0,query.length-1)
+     xhr.open(opts.type,opts.url+query,true)
+     xhr.send()
+   }
+  </script>
+
+</body>
+</html>
