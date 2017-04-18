@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+       html,body{
+           margin: 0;
+       }
+       input{
+           margin: 20px;
+           width: 200px;
+       }
+   </style>
+</head>
+<body>
+  <input type="text" id="input" placeholder="http://b.jrg.com:8080/b.html">
+  <script>
+  $("#input").addEventListener('input',function(){
+    window.parentpostMessage(this.value,"*")
+  })
+  window.addEventListener("message",function(e){
+    $("#input").value=e.data;
+    console.log(e.data);
+  })
+  function $(id){
+    return document.querySelector(id)
+  }
+
+  </script>
+</body>
+</html>
