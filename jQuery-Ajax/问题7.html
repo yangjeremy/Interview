@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .btn{
+      border: 1px solid #ccc;
+      outline: none;
+      background: #FFF;
+      color: #000;
+      border-radius: 10px;
+     padding: 10px 20px;
+     cursor: pointer;
+      font-size: 20px;
+
+    }
+    .btn:hover{
+    color: #66E560;
+}
+
+    .div1{
+      width: 200px;
+      height: 200px;
+      background-color: pink;
+      position: relative;
+      border-radius: 8px;
+      border: 2px solid #ccc;
+    }
+
+    .box2{
+      position: fixed;
+      left: 300px;
+      top: 100px;
+      border: 1px solid #000;
+      border-radius: 3px;
+      padding: 8px;
+      line-height: 1;
+    }
+    .box3{
+      width: 200px;
+      height: 500px;
+    }
+    .ipt{
+      margin-top: 50px;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    select{
+      padding: 8px;
+      border-radius: 4px;
+    }
+    .tex{
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+  <button class="btn">点击</button>
+</div>
+<div class="div1"></div>
+<div class="box2">
+  窗口垂直滚动距离:
+  <span class="show"></span>
+</div>
+<input type="text" value="边框变色、字母大写" class="ipt">
+
+<select class="study" name="study">
+  <option selected>Books</option>
+  <option>Pens</option>
+  <option>Pencils</option>
+  <option>Notebooks</option>
+</select>
+<div class="tex">
+  当前选择的是：
+  <span class="studyVal"></span>
+</div>
+<div class="box3"></div>
+  <script src="js/jquery-3.2.0.min.js"></script>
+  <script>
+  $('.btn').on('click',function(e){
+                $(e.currentTarget).css('background','red');
+                setTimeout(function(){
+                    $('.btn').css('background','blue')
+                },500)
+            })
+
+  $('.btn').on('click', function(){
+    $(this).animate({
+        backgroundColor: '#FF6B6E'
+        }, 1500).animate({
+        backgroundColor: '#5FCDE3'
+        }, 1500);
+    })
+
+    $(window).on('scroll',function(){
+    $('.show').text($(this).scrollTop()+'px')
+    })
+    $(".ipt").on('focus',function(){
+      $(this).css('border-color','blue')
+    })
+    $('.ipt').on('focusout',function(){
+      $(this).css('border-color','#ccc')
+      console.log(this.value)
+    })
+    $('.ipt').on('keypress',function(){
+      $('.ipt').on('keyup',function(){
+        $('.ipt').val($('.ipt').val().toUpperCase())
+      })
+    })
+    var $div=$(".div1");
+    $div.on('mouseenter',function(){
+      $div.css('backgroundColor','red')
+    })
+    $div.on('mouseleave',function(){
+      $div.css('backgroundColor','#fff')
+    })
+    $('.study').on('change',function(){
+      $('.studyVal').text($(".study option:selected").val())
+    })
+  </script>
+</body>
+</html>
