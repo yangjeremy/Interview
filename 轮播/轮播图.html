@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>轮播图</title>
+   <style>
+     ul,li{
+       list-style: none;
+       margin: 0;
+       padding: 0
+     }
+     .carousel{
+       margin: 0 auto;
+       position: relative;
+       width: 300px;
+       height: 200px;
+       overflow: hidden;
+     }
+     .carousel .img-ct{
+       position: absolute;
+       left: -300px;
+       width: 1200px;
+       height: 200px;
+     }   /*给ul加宽度是因为没有这个宽度，li设置左浮动也没办法浮动
+          相当于它需要一个容器*/
+     .carousel .img-ct::after{
+       content: '';
+       display: block;
+       clear: both;
+     }
+    .carousel .img-ct>li{
+      float: left;
+    }
+    .carousel .img-ct img{
+      width: 300px;
+      height: 200px;
+    }
+    .carousel .btn{
+      position: absolute;
+      top: 50%;
+      margin-top: -15px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 50%;
+      font-size: 18px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #000;
+      opacity: 0.8;
+      display: block;
+    }
+    .carousel .btn-pre{
+      left: 10px;
+    }
+    .carousel .btn-next{
+      right: 10px;
+    }
+    .carousel .bullet-ct{
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+    .carousel .bullet{
+  /*    position: absolute;
+      bottom: 20px;
+      margin-left: -60px;
+      left: 50%;
+  */
+      display: inline-block;
+    }
+  /*  .carousel .bullet::after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+*/
+    .bullet>li{
+      float: left;
+      width: 20px;
+      height: 6px;
+      border-radius: 3px;
+      background-color: #fff;
+      margin: 0 5px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .bullet>li.active{
+      background-color: #ccc;
+    }
+   </style>
+ </head>
+ <body>
+   <div class="carousel">
+     <ul class="img-ct">
+       <li data-index='0'><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg" alt=""></a></li>
+       <li data-index='1'><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg" alt=""></a></li>
+       <li data-index='2'><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg" alt=""></a></li>
+       <li data-index='3'><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg" alt=""></a></li>
+     </ul>
+     <a href="#" class="btn btn-pre">&lt;</a>
+     <a href="#" class="btn btn-next">&gt;</a>
+     <div class="bullet-ct">
+     <ul class="bullet">
+       <li class="active"></li>
+       <li></li>
+       <li></li>
+       <li></li>
+     </ul>
+     </div>
+   </div>
+<script src="js/jquery-3.2.0.min.js"></script>
+<script>
+
+var $imgCt=$('.img-ct'),
+    $preBtn=$('.btn-pre'),
+    $nextBtn=$('.btn-next'),
+    $bullet=$('.bullet');
+
+var $firstImg=$('.img-ct').find('li').first(),
+    $lastImg=$('.img-ct').find('li').last();
+    var curPageIndex=0;
+    var imgLength=$imgCt.children().length;/*获取数组长度
+    （原本的长度）*/
+    var imgWidth=$firstImg.width();
+    $imgCt.css('left',-imgWidth)/*确定第一张图片的位置，因为前面
+    一张被克隆的给占了*/
+    var isAnimate=false;/*状态锁，刚开始是false*/
+    var clock;   //放在定时器的
+
+$imgCt.prepend($lastImg.clone()),/*备份一份放到前面*/
+$imgCt.append($firstImg.clone()),/*备份一份放到后面*/
+$imgCt.width($firstImg.width()*$imgCt.children().length)
+     /*整个imgCt的宽度，适应不同数量*/
+function playNext(n){
+  if(isAnimate)return;
+  isAnimate=true;/*true。开启通道让他能执行*/
+
+  var n=n||1;
+  $imgCt.animate({
+    left: '-='+imgWidth*n     /*向右滚动*/
+  },function(){
+    curPageIndex=curPageIndex+n;  /*滚动一下下标就+1*/
+    if(curPageIndex===imgLength){
+      $imgCt.css({'left': -imgWidth})  /*到了最后一张再点击的
+      时候马上恢复成第一张的状态*/
+      curPageIndex=0
+    }
+    isAnimate=false;  /*false。关闭通道，退出。*/
+    setBullet()
+  }
+)
+}
+
+function playPre(n){
+  if(isAnimate)return;
+  isAnimate=true;
+
+  var n=n||1;
+
+  $imgCt.animate(
+    {left: '+='+$firstImg.width()*n
+  },function(){
+    curPageIndex=curPageIndex-n;
+    if(curPageIndex<0){  /*到了第一张再继续点击的时候*/
+      $imgCt.css('left',-(imgLength*imgWidth));
+      /*马上移动到最后一张*/
+      curPageIndex=imgLength-1; /*序号到达最后一张*/
+    }
+    isAnimate=false;
+    setBullet()
+  }
+  )
+}
+function autoPlay(){
+  clock=setInterval(function(){
+    playNext()
+  },2000)
+}     //定时器
+function setBullet(){
+ $bullet.children()
+        .removeClass('active') /*它们对应的标记点*/
+        .eq(curPageIndex)/*对应的序号*/
+        .addClass('active')
+}
+
+$preBtn.on('click',function(e){
+ e.preventDefault()
+ clearInterval(clock)
+ playPre()
+ autoPlay()
+})
+$nextBtn.on('click',function(e){
+ e.preventDefault()
+ clearInterval(clock)
+ playNext()
+ autoPlay()
+
+
+})
+$bullet.on('click','li',function(){
+  clearInterval(clock);
+  var Idx=$(this).index();
+  var step=Idx-curPageIndex;
+  if(step>0){
+     playNext(step)
+  }else if(step<0){
+     playPre(-step)
+  }
+    autoPlay()
+})
+autoPlay();
+
+</script>
+ </body>
+</html>
