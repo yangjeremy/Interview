@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  [v-cloak]{
+          display: none;
+      }
+      *{
+          padding: 0;
+          margin: 0;
+          box-sizing: border-box;
+      }
+      ol,ul,li{
+          list-style: none;
+      }
+      .container{
+         height: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+     }
+     .title{
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    .title>.product-name{
+            font-size: 60px;
+        }
+    .title>.product-simple-info{
+           font-size: 22px;
+        }
+    .action-type{
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+    .action-type label{
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0 60px;
+      font-weight: 600;
+    }
+
+    .action-type label::selection{
+      border-bottom: 2px solid red;
+    }
+    .action-type label>input{
+      display: none;
+    }
+
+    .signUp,.login{
+            position: relative;
+        }
+        .signUp:before,
+        .login:before{
+            content: '';
+            position: absolute;
+            top: -16px;
+            width: 32px;
+            height: 4px;
+            background-color: #333;
+            transition:all .4s;
+        }
+        .login:before{
+            left: 220px;
+        }
+        .signUp:before{
+            left: 60px;
+        }
+    #signInAndSignUp input[type="text"],
+    #signInAndSignUp input[type="password"]{
+          padding: 8px;
+          width: 240px;
+          border: 0.5px solid ;
+          border-radius: 4px;
+          font-size: 18px;
+          overflow: hidden;
+          color: #333;
+      }
+      #signInAndSignUp input[type="text"]:focus,
+      #signInAndSignUp input[type="password"]:focus{
+        border-color: #66afe9;
+        outline: 0;
+      }
+      #signInAndSignUp input{
+        margin-bottom: 16px;
+      }
+      .formActions>input[type="submit"]{
+        font-size: 16px;
+        padding: 8px;
+        font-weight: 600;
+         background-color:   #4169E1;
+         color: #fff;
+         cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        width: 280px;
+        display: block;
+        margin: 0 auto;
+
+      }
+
+  </style>
+</head>
+<body>
+  <div id="app"  class="container" v-cloak>
+    <section id="signInAndSignUp" v-if="!currentUser">
+      <div class="title">
+                <h1 class="product-name">TODO</h1>
+                <p class="product-simple-info">A Simple Todo Creator</p>
+      </div>
+      <div class="action-type">
+        <label><input type="radio" value="signUp" v-model="actionType">注册</label>
+        <label><input type="radio" value="login" v-model="actionType">登录</label>
+
+
+      </div>
+      <div class="signUp" v-if="actionType=='signUp'" v-cloak>
+        <form @submit.prevent=signUp>
+          <div class="formRow">
+            账号
+            <input type="text" v-model="formData.username">
+          </div>
+          <div class="formRow">
+            密码
+            <input type="password" v-model="formData.password">
+          </div>
+          <div class="formActions">
+            <input type="submit" value="注册">
+          </div>
+        </form>
+      </div>
+
+      <div class="login" v-if="actionType=='login'">
+        <form @submit.prevent='login'>
+          <div class="formRow">
+            账号
+            <input type="text" v-model="formData.username">
+          </div>
+          <div class="formRow">
+            密码
+            <input type="password" v-model="formData.password">
+          </div>
+          <div class="formActions">
+            <input type="submit" value="登录">
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="todo" v-if="currentUser">
+      <p><button @click="loginout">登出</button></p>
+      <div class="newTask">
+          <input type="text" v-model="newTodo" @keypress.enter="addTodo">
+        </div>
+      <ol class="todos">
+        <li v-for="todo in todoList">
+          <input type="checkbox" v-model="todo.done"> {{ todo.title }}
+
+          <span v-if="todo.done">已完成</span>
+          <span v-else>未完成</span>
+
+      <button @click="removeTodo(todo)">×</button>  <!-- 👈 加了一个按钮 -->
+       </li>
+      </ol>
+      </section>
+  </div>
+  <script src="bundle.js"></script>
+</body>
+</html>
