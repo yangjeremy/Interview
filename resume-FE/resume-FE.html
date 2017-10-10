@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>个人简历页面</title>
+     <style>
+        html,body,h1,h2,h3,h4,h5,h6,p,ul,li,dl,dt,dd{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+          list-style: none;
+        }
+        *{
+          box-sizing: border-box;
+        }
+        body{
+          font:14px/1.8 Arial;
+          background-color: #ccc;
+          color: #333;
+        }
+        #page{
+          max-width: 1000px;
+          margin: 0 auto;
+          background-color: #fff;
+          padding:60px 45px;
+            }
+
+        section{margin-top: 30px;
+        }
+        section::after{
+          content: "";
+          display: block;
+          clear: both;
+        }
+        section>h2{font-size: 18px;
+        border-bottom: 1px solid #ccc;
+         width: 40%;
+         padding-bottom: 5px;
+         margin-bottom: 10px;
+       }
+        section>ul>li{
+          padding-left: 70px;
+          border-left: 2px solid #333;
+          padding-bottom: 10px;
+          position: relative;
+            }
+        section>ul>li:before{
+          content: "";
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #333;
+          position: absolute;
+          left: -6px;
+               }
+         section h3{
+           font-size: 18px;
+           font-weight: normal;
+           line-height: 1;
+           margin-bottom: 10px;
+              }
+         section h3 span{color: #ccc;
+         }
+         section li>.major{
+           color: #ccc;
+           font-weight: bold;
+         }
+         .personal .name{
+           width: 40%;
+           float: left;
+         }
+         .personal .contact{
+           width: 60%;
+           float: left;
+          }
+          .personal .contact p{
+            line-height:2;
+          }
+          .personal .circle{
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background-color: #333;
+            font-size: 30px;
+            color: #fff;
+            position: relative;
+            float: left;
+          }
+          .personal .circle span:nth-child(1){
+            position: absolute;
+            top: 30px;
+            left: 30px;
+          }
+          .personal .circle span:nth-child(2){
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+          }
+          .personal .circle::before{
+            content: "";
+            position: absolute;
+            top: 72px;
+            left: 22px;
+            display: inline-block;
+            width: 100px;
+            border-top: 2px solid #fff;
+            transform: rotateZ(120deg);
+          }
+          .personal .name h1{
+            margin-left: 160px;
+            font-size: 40px;
+          }
+          .personal .name p{
+            margin-left: 160px;
+            font-size: 20px;
+          }
+          .personal .contact h2{
+            border-bottom: 4px solid #333;
+            width: auto;
+            margin-bottom: 10px;
+          }
+
+
+
+          #page .others{
+            content: "";
+            display: inline-block;
+            clear: both;
+          }
+
+          .activity{
+            width: 45%;
+            float: left;
+          }
+
+          .activity>h2{
+            width: auto;
+          }
+          .activity>ol>li{
+            padding-left: 50px;
+            padding-bottom: 10px;
+            position: relative;
+          }
+          .activity>ol>li::before{
+            content: "";
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-radius: 50%;
+            border: 2px solid #333;
+            position: absolute;
+            left: -30px;
+
+          }
+          .activity>ol>li::after{
+            content: "+";
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            position: absolute;
+            left: -22px;
+            top: 0;
+            font-weight: bold;
+          }
+          .skills{
+            width: 50%;
+            float: left;
+            margin-left: 20px;
+          }
+          .skills>h2{
+            width: auto;
+          }
+          .skills h3{
+            float: left;
+            width: 50%;
+            line-height: 3;
+
+          }
+          .skills>ol h3{
+            position: relative;
+
+          }
+          .skills>ol h3::before{
+            content: "";
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-radius: 50%;
+            border: 2px solid #333;
+            position: absolute;
+            left: -29px;
+            top: 14px;
+
+          }
+          .skills>ol h3::after{
+            content: "+";
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            position: absolute;
+            left: -22px;
+            top: 0;
+            font-weight: bold;
+          }
+
+          .circle img{
+            width: 180px;
+             position: absolute;
+            top:-2px;
+            right: -10px;
+
+          }
+          .circle{
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #000;
+          }
+     </style>
+</head>
+<body>
+     <div id="page">
+        <section class="personal">
+          <div class="name">
+            <div class="circle">
+
+              <img src="./pic/a.jpg" alt="">
+            </div>
+            <h2>杨坚坛</h2>
+            <p>应聘前端工程师</p>
+          </div>
+          <div class="contact">
+            <h2>基本信息</h2>
+            <ul>
+              <li><p><strong>出生年月：</strong> 1993年6月</p></li>
+              <li><p><strong>毕业院校：</strong> 五邑大学</p></li>
+              <li><p><strong>学历专业：</strong>本科/工业设计   2012-2016</p></li>
+              <li><p><strong>目标城市：</strong> 广州/深圳</p></li>
+              <li><p><strong>联系电话：</strong>15088132893</p></li>
+              <li><p><strong>邮箱：</strong>390076563@qq.com</p></li>
+            </ul>
+          </div>
+        </section>
+        <section class="experience">
+          <h2>技能描述</h2>
+          <ul>
+            <li>
+              <h3><strong>静态页面开发</strong></h3>
+              <p>
+              熟悉W3C规范，熟练使用 HTML5、CSS3、JavaScript 和 jQuery 做出像素还原的静态页面。熟悉 iconfont 字体图标
+              </p>
+            </li>
+            <li>
+              <h3><strong>框架</strong></h3>
+              <p>
+              熟悉 Vuejs 框架，能运用vue-router、vuex等技术栈，使用vue-cli脚手架工具开发页面。了解 React, Bootstrap, nodejs。
+              </p>
+            </li>
+            <li>
+              <h3><strong>面向对象组件封装</strong></h3>
+              <p>
+              使用 jQuery 封装了轮播组件、Tab 切换组件、懒加载组件、回到顶部组件、加载更多组件、瀑布流组件等。对jQuery的使用有一定的经验。
+              </p>
+            </li>
+            <li>
+              <h3><strong>前后端交互</strong></h3>
+              <p>
+            了解 AJAX、跨域、JSONP、 CORS，前后端交互。用原生 JS 封装AJAX。能使用 server mock 工具搭建本地服务器进行 AJAX 调试。
+              </p>
+            </li>
+            <li>
+              <h3><strong>相关技术</strong></h3>
+              <p>
+          了解 Scss、PostCSS等 CSS 预编译，熟悉 iconfont 字体图标技术，熟悉EScript6语法。
+              </p>
+            </li>
+            <li>
+              <h3><strong>模块化</strong></h3>
+              <p>
+            熟悉 CommonJS、AMD、CMD 模块化规范，能使用 requireJS、webpack、gulp 进行模块打包等前端工程化工具。
+              </p>
+            </li>
+          </ul>
+        </section>
+        <section class="education">
+          <h2>项目作品</h2>
+          <ul>
+            <li>
+              <h3><strong>jQuery制作音乐播放器</strong></h3>
+              <p><strong>项目预览：</strong><a href="https://yangjeremy.github.io/musicFM/project-musicFM/myFM.html">https://yangjeremy.github.io/musicFM/project-musicFM/myFM.html</a></p>
+              <p><strong>项目地址：</strong><a href="https://github.com/yangjeremy/musicFM">https://github.com/yangjeremy/musicFM</a></p>
+
+              <p>
+              音乐 API 数据源来自百度 FM。技术栈： 1. jQuery:最好用的JS库，操作 DOM 的神器，制作了歌曲的播放进度条、音量控制条、 歌词同步展示。
+               2. ajax 异步获取数据，JSONP 处理跨域。 3. 使用了 HTML5 的 Audio 音频技术。 4. 用 CSS3 的动画、渐变、阴影、圆角 等效果美化了 UI 。 5. 使用 flex 布局，使用了 jQuery 。 6. 使用了 iconfont 制作了按钮图标。
+               7. 使用了Scss、PostCSS、 webpack 工具。
+              </p>
+            </li>
+            <li>
+              <h3><strong>在线 Todolist 应用</strong></h3>
+              <p><strong>项目预览：</strong><a href="https://yangjeremy.github.io/demo/todoList-vue/page.html">https://yangjeremy.github.io/demo/todoList-vue/page.html</a></p>
+              <p><strong>项目地址：</strong><a href="https://github.com/yangjeremy/demo/tree/master/todoList-vue">https://github.com/yangjeremy/demo/tree/master/todoList-vue</a></p>
+
+              <p>
+                使用了 Vue.js 框架，后端服务器使用 leanCloud 存储数据。
+                用户注册账号密码后登陆，得到个人的 Todolist 记事本。（测试账号：123123密码：123123）
+              </p>
+            </li>
+            <li>
+              <h3><strong>vue在线简历编辑器</strong></h3>
+              <p><strong>项目预览：</strong><a href="https://yangjeremy.github.io/vueResumeProject/vue-project/dist/#/">https://yangjeremy.github.io/vueResumeProject/vue-project/dist/#/</a></p>
+              <p><strong>项目地址：</strong><a href="https://github.com/yangjeremy/vueResumeProject/tree/master/vue-project">https://github.com/yangjeremy/vueResumeProject/tree/master/vue-project</a></p>
+              <p>
+  该项目是一个通过Vue2.0来构建的一个在线简历编辑器，通过leancloud提供的API实现了登录注册功能，
+  并且数据存储在leancloud。熟练使用vue-cli脚手架工具构建开发环境。使用Vuex进行状态管理，使用localStorage进行数据的本地存储，使用UI框架eleme修饰美化页面。
+              </p>
+            </li>
+            <li>
+              <h3><strong>网站首页</strong></h3>
+              <p><strong>项目预览：</strong><a href="https://yangjeremy.github.io/demo/webpack-demo/page-webpack/index.html">https://yangjeremy.github.io/demo/webpack-demo/page-webpack/index.html</a></p>
+              <p><strong>项目地址：</strong><a href="https://github.com/yangjeremy/demo/tree/master/webpack-demo/page-webpack">https://github.com/yangjeremy/demo/tree/master/webpack-demo/page-webpack</a></p>
+              <p>
+                使用了HTML5，CSS3，通过自己使用jQuery造轮子将多个组件封装，包括自己制作的新闻站点，使用jsonp、懒加载和瀑布流技术，使用webpack模块打包工具，组合成效果丰富的网站页面。对前端工程化有一定的认识。
+              </p>
+            </li>
+          </ul>
+        </section>
+        <div class="others">
+        <section class="activity">
+          <h2>工具账号</h2>
+          <ol>
+            <li>
+              <h3><strong>我的GitHub</strong></h3>
+              <p>
+                <strong>Github地址：</strong>
+                <a href="https://github.com/yangjeremy?tab=repositories">https://github.com/yangjeremy?tab=repositories</a>
+                使用 Github 保存管理代码，在线预览，能使用简单的 git 命令行。
+                能在 Github 社区寻找开源资源。
+               </p>
+            </li>
+            <li>
+              <h3><strong>我的博客</strong></h3>
+              <p>
+                <strong>简书地址：</strong>
+                <a href="http://www.jianshu.com/u/92ad9a1dec85">http://www.jianshu.com/u/92ad9a1dec85</a>
+                在简书上记录自己学习前端的心得、笔记，记录自己的学习过程
+
+               </p>
+            </li>
+          </ol>
+        </section>
+        <section class="skills">
+          <h2>PROFESIONAL SKILLS</h2>
+          <ol>
+            <li><h3>HTML5</h3></li>
+            <li><h3>CSS3</h3></li>
+            <li><h3>JavaScript</h3></li>
+            <li><h3>jQuery</h3></li>
+            <li><h3>Vue.js</h3></li>
+            <li><h3>Less</h3></li>
+            <li><h3>ES6</h3></li>
+            <li><h3>React</h3></li>
+          </ol>
+        </section>
+        </div>
+     </div>
+</body>
+</html>
